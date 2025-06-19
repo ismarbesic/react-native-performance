@@ -10,9 +10,13 @@ import {
 } from './resource-logger';
 const { PerformanceObserver, addEntry, performance } = createPerformance();
 
-declare const global: { __turboModuleProxy: null | {} };
+declare const global: {
+  __turboModuleProxy: null | {};
+  RN$Bridgeless?: boolean;
+};
 
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
+const isTurboModuleEnabled =
+  global.RN$Bridgeless || global.__turboModuleProxy != null;
 
 const RNPerformanceManager = isTurboModuleEnabled
   ? require('./NativeRNPerformanceManager').default
